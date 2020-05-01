@@ -11,6 +11,7 @@ var tripType = "OW"; // "OW or RT"
 var origin = "DEN";
 var destination = "ATL";
 var tripTypeSelector = null;
+var departureDate = "5/11/2020";
 
 function setTripTypeSelector(tripType) {
     if (tripType == "OW") {
@@ -32,6 +33,9 @@ nightmare
     .wait(`[data-value="${destination}"]`)
     .click(`[data-value="${destination}"]`)
     .click(tripTypeSelector)
+    .wait('.hasDatepicker')
+    .type('.hasDatepicker', departureDate)
+    .click('#searchButton')
     .wait('.wait')
     .end()
     .then(function (result) {
