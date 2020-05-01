@@ -9,20 +9,29 @@ var nightmare = Nightmare({
 
 var tripType = "OW"; // "OW or RT"
 var origin = "DEN";
+var destination = "ATL";
+var tripTypeSelector = null;
+
+function setTripTypeSelector(tripType) {
+    if (tripType == "OW") {
+        tripTypeSelector = 'label.radio:nth-child(2)'
+    } else {
+        tripTypeSelector = 'label.radio:nth-child';
+    }
+}
+
+setTripTypeSelector(tripType);
 
 
 nightmare
     .goto('https://ll-75cxnh2.flyfrontier.com/')
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
-    .click('[data-value="DEN"]')
-    .type('#toInput', 'ATL')
-    .wait('[data-value="ATL"]')
-    .click('[data-value="ATL"]')
-    .click('label.radio:nth-child(2)')
-    //set child in global scope, then pass it in above!
-    // check for one way or rt
-    // one way needs to select one way radio
+    .click(`[data-value="${origin}"]`)
+    .type('#toInput', destination)
+    .wait(`[data-value="${destination}"]`)
+    .click(`[data-value="${destination}"]`)
+    .click(tripTypeSelector)
     .wait('.wait')
     .end()
     .then(function (result) {
