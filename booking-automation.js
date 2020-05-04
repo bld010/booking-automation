@@ -116,46 +116,47 @@ nightmare
     //#region Payment Page
     .wait('#cardholder_name')
     .type('#cardholder_name', `${passenger1FirstName} ${passenger1LastName}`)
+    // .wait(20000)
     .type('#card_number', cardNumber)
     .select('#card_expiration_month', "1")
     .select('#card_expiration_year', "49")
     .type('#card_cvv', cvv)
 
-    .type('#billing_payment_address_1', "123 Main St.")
-    .type('#billing_payment_city', 'Denver')
-    .select('#billing_payment_state', 'CO')
+    // .type('#billing_payment_address_1', "123 Main St.")
+    // .type('#billing_payment_city', 'Denver')
+    // .select('#billing_payment_state', 'CO')
 
-    .click('.js-paymentSubmitButton')
+    // .click('.js-paymentSubmitButton')
     //#endregion
 
 
     //Close slideout (maybe?)
-    .wait('#btnReturnToBooking')
-    .click('#btnReturnToBooking')
+    // .wait('#btnReturnToBooking')
+    // .click('#btnReturnToBooking')
 
 
     //Grab PNR
-    .wait('.itin-header span.pnr')
-    .evaluate(() => {
-        pnr = document.querySelector('.itin-header span.pnr').innerText;
-        console.log("The PNR is " + pnr) // this is in the browser scope
-        return pnr;
-    })
-    .then((pnr) => {
+    // .wait('.itin-header span.pnr')
+    // .evaluate(() => {
+    //     pnr = document.querySelector('.itin-header span.pnr').innerText;
+    //     console.log("The PNR is " + pnr) // this is in the browser scope
+    //     return pnr;
+    // })
+    // .then((pnr) => {
 
-        console.log('\n\n')
-        console.table({
-            PNR: pnr,
-            LastName: passenger1LastName
-        })
-        console.log('\n\n')
-        // this is in node scope
+    //     console.log('\n\n')
+    //     console.table({
+    //         PNR: pnr,
+    //         LastName: passenger1LastName
+    //     })
+    //     console.log('\n\n')
+    //     // this is in node scope
 
-        // comment in below line if you just want a PNR (and don't want to stop at a specific part of the flow)
-        // return nightmare.end();
-    })
+    //     // comment in below line if you just want a PNR (and don't want to stop at a specific part of the flow)
+    //     return nightmare.end();
+    // })
 
-
+    // .end()
 
     // This command closes the browser (Only do this if you just want a PNR)
     .then(function (result) {
