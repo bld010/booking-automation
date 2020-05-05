@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
+
 
 var tripType = "OW"; // "OW or RT"
 var origin = "DEN";
@@ -31,13 +33,18 @@ setTripTypeSelector(tripType);
 
 app.set('port', process.env.PORT || 3001);
 app.use(cors());
+app.use(bodyParser.json())
 app.locals.title = 'Booking Flow Automation';
 
 app.get('/', (request, response) => {
   response.json('Welcome to the Booking Flow Automation Tool!');
 });
 
-app.get('/fullBooking', (request, response) => {
+app.post('/fullBooking', (request, response) => {
+
+    var requestBody = request.body;
+
+    console.log('/full booking request body', requestBody);
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -49,7 +56,7 @@ app.get('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto('https://ll-75cxnh2.flyfrontier.com/')  //Put in your local IBE 
+    .goto(requestBody.ibeUrl)  //Put in your local IBE 
 
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
@@ -123,23 +130,50 @@ app.get('/fullBooking', (request, response) => {
     })
     .then((pnr) => {
 
-        // console.log('\n\n')
-        // console.table({
-        //     PNR: pnr,
-        //     LastName: passenger1LastName
-        // })
-        // console.log('\n\n')
-        // this is in node scope
-
         let pnrInfo = {
             pnr: pnr,
             lastName: passenger1LastName
         }
 
         response.json({pnrInfo});
-        // comment in below line if you just want a PNR (and don't want to stop at a specific part of the flow)
         return nightmare.end();
     })
+    .catch(function (error) {
+        console.error('Failure: ', error)
+    })
+    
+  });
+
+
+  app.post('/flightSelect', (request, response) => {
+
+    var body = request.body;
+
+    console.log(body)
+
+    var Nightmare = require('nightmare');
+    var nightmare = Nightmare({ 
+        show: true,
+        typeInterval: 10,
+        openDevTools: {
+            mode: 'detach'
+          }
+        });
+
+    nightmare
+    .goto(body.ibeUrl) 
+
+    .type('#fromInput', origin)
+    .wait(`[data-value="${origin}"]`)
+    .click(`[data-value="${origin}"]`)
+    .type('#toInput', destination)
+    .wait(`[data-value="${destination}"]`)
+    .click(`[data-value="${destination}"]`)
+    .click('label.radio:nth-child(2)')
+    .wait('.hasDatepicker')
+    .type('.hasDatepicker', departureDate)
+    .click('#searchButton')
+
     .catch(function (error) {
         console.error('Failure: ', error)
     })

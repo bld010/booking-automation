@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './UserInput.css';
-import { startFullBooking } from './util/apiCalls.js';
+import { startAutomation } from './util/apiCalls.js';
 
 class UserInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
             stopBookingFlowPage: null,
-            pnr: null
+            pnr: null,
+            ibeUrl: null
         };
         this.bookingFlowPages = [
             "Flight Select",
@@ -39,11 +40,31 @@ class UserInput extends Component {
         })
     }
 
+    handleIbeUrlChange = (e) => {
+        this.setState({ibeUrl: e.target.value})
+    }
+
+
+    getFetchRoute = () => {
+        switch (this.state.stopBookingFlowPage) {
+            case 'Flight Select':
+                return "http://localhost:3001/flightSelect";
+            
+            default: 
+                return "http://localhost:3001/fullBooking";
+
+        }
+
+    }
+
     handleSubmitClick = async (e) => {
         e.preventDefault();
 
+        let fetchRoute = this.getFetchRoute();
+        let ibeUrl = this.state.ibeUrl;
+
         try {
-            let result = await startFullBooking();
+            let result = await startAutomation(fetchRoute, ibeUrl);
             this.setState({pnr: result.pnrInfo})
             console.log(result);
         } catch (error) {
@@ -60,11 +81,15 @@ class UserInput extends Component {
     render = () => {
         return(
             <div className="UserInput">
+                <form>
+                    <label>Local IBE URL</label>
+                    <input placeholder="Enter your local IBE URL" onChange={this.handleIbeUrlChange}></input>
+                </form>
                 <p>Where do you want the automation to stop?</p>
                 <ul className="bookingFlowPageSelections">
                     {this.generateBookingFlowSelectionElements()}
                 </ul>
-                <button onClick={this.handleSubmitClick}>Submit</button>
+                <button onClick={this.handleSubmitClick} disabled={!this.state.ibeUrl}>Submit</button>
                 {this.renderPnr()}
             </div>
             

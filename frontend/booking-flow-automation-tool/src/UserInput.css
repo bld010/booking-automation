@@ -27,3 +27,13 @@ li.active {
     background-color: dodgerblue;
     color: white;
 }
+
+form {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 10px;
+}
