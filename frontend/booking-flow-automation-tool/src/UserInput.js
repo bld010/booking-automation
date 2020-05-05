@@ -13,8 +13,9 @@ class UserInput extends Component {
         this.bookingFlowPages = [
             "Flight Select",
             "Passenger Info",
-            "Seat Select",
             "Bundles",
+            "Seat Select",
+            "Bags",
             "Extras",
             "Payment",
             "Full Booking"
@@ -49,7 +50,18 @@ class UserInput extends Component {
         switch (this.state.stopBookingFlowPage) {
             case 'Flight Select':
                 return "http://localhost:3001/flightSelect";
-            
+            case 'Passenger Info':
+                return "http://localhost:3001/passengerInfo";
+            case 'Bundles':
+                return "http://localhost:3001/bundles";
+            case 'Seat Select':
+                return "http://localhost:3001/seatSelect";
+            case 'Bags':
+                return "http://localhost:3001/bags";
+            case 'Extras':
+                return "http://localhost:3001/extras";
+            case 'Payment':
+                return "http://localhost:3001/payment";
             default: 
                 return "http://localhost:3001/fullBooking";
 

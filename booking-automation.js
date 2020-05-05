@@ -1,5 +1,4 @@
 var start = new Date();
-var hrstart = process.hrtime();
 
 var Nightmare = require('nightmare');
 var nightmare = Nightmare({ 
