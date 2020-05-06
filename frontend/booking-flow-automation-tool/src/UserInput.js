@@ -42,9 +42,25 @@ class UserInput extends Component {
     }
 
     handleIbeUrlChange = (e) => {
-        this.setState({ibeUrl: e.target.value})
+        this.setState({ibeUrl: e.target.value});
+        this.updateLocalStorage(e.target.value);
     }
 
+    updateLocalStorage = (ibeUrl) => {
+        localStorage.setItem('ibeUrl', ibeUrl)
+    }
+
+
+    retrieveIbeUrlFromLocalStorage = () => {
+        let ibeUrl = localStorage.getItem('ibeUrl');
+        if (ibeUrl) {
+            this.setState({ibeUrl: ibeUrl})
+        }
+    }
+
+    componentDidMount = () => {
+        this.retrieveIbeUrlFromLocalStorage();
+    }
 
     getFetchRoute = () => {
         switch (this.state.stopBookingFlowPage) {
@@ -95,7 +111,7 @@ class UserInput extends Component {
             <div className="UserInput">
                 <form>
                     <label>Local IBE URL</label>
-                    <input placeholder="Enter your local IBE URL" onChange={this.handleIbeUrlChange}></input>
+                    <input placeholder="Enter your local IBE URL" onChange={this.handleIbeUrlChange} value={this.state.ibeUrl}></input>
                 </form>
                 <p>Where do you want the automation to stop?</p>
                 <ul className="bookingFlowPageSelections">
