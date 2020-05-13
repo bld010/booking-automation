@@ -8,7 +8,7 @@ var tripType = "OW"; // "OW or RT"
 var origin = "DEN";
 var destination = "ATL";
 var tripTypeSelector = null;
-var departureDate = "5/11/2020";
+var departureDate = "5/20/2020";
 var passenger1FirstName = "TestFirstNameZ";
 var passenger1LastName = "TestLastNameZ";
 var passenger1Gender = "male";
@@ -42,9 +42,24 @@ app.get('/', (request, response) => {
 
 app.post('/fullBooking', (request, response) => {
 
-    var requestBody = request.body;
+    var { 
+      origin, 
+      destination, 
+      tripType,
+      departureDate,
+      returnDate,
+      passenger1FirstName,
+      passenger1LastName, 
+      passenger1Gender,
+      passenger1BirthDate, 
+      emailAddress, 
+      phoneNumber,
+      zipCode, 
+      cardNumber, 
+      cvv
+    } = request.body.journeyInfo;
 
-    console.log('/full booking request body', requestBody);
+    console.log('journeyInfo from requestBody', request.body.journeyInfo);
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -56,8 +71,7 @@ app.post('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto(requestBody.ibeUrl)  //Put in your local IBE 
-
+    .goto(request.body.ibeUrl)
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
     .click(`[data-value="${origin}"]`)
