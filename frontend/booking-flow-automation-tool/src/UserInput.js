@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './UserInput.css';
 import { startAutomation } from './util/apiCalls.js';
+import JourneyInfo from './JourneyInfo.js';
 
 class UserInput extends Component {
     constructor(props) {
@@ -110,13 +111,20 @@ class UserInput extends Component {
         return(
             <div className="UserInput">
                 <form>
-                    <label>Local IBE URL</label>
-                    <input placeholder="Enter your local IBE URL" onChange={this.handleIbeUrlChange} value={this.state.ibeUrl}></input>
+                        <label>Local IBE URL</label>
+                        <input placeholder="Enter your local IBE URL" onChange={this.handleIbeUrlChange} value={this.state.ibeUrl || ''}></input>
                 </form>
-                <p>Where do you want the automation to stop?</p>
-                <ul className="bookingFlowPageSelections">
-                    {this.generateBookingFlowSelectionElements()}
-                </ul>
+                <div className="inputColumns">
+                    <div>
+                        <p>Where do you want the automation to stop?</p>
+                        <ul className="bookingFlowPageSelections">
+                            {this.generateBookingFlowSelectionElements()}
+                        </ul>
+                    </div>
+                    
+                    <JourneyInfo />
+
+                </div>
                 <button onClick={this.handleSubmitClick} disabled={!this.state.ibeUrl}>Submit</button>
                 {this.renderPnr()}
             </div>

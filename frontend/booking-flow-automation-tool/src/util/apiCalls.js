@@ -1,6 +1,5 @@
-export const startAutomation = async (url, ibeUrl) => {
-    console.log('url in apiCalls', url);
-    console.log('ibeUrl in apicalls', ibeUrl);
+export const startAutomation = async (url, ibeUrl, flightInformation) => {
+    console.log('FlightInformation from UserInput state: ', flightInformation);
 
     let request = {
         method: 'POST',
@@ -22,3 +21,4 @@ export const startAutomation = async (url, ibeUrl) => {
         return data;
     }
 }
+
