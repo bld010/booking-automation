@@ -23,8 +23,14 @@ class JourneyInfo extends Component {
         }
     }
 
-    handleInputChange = (property, e) => {
-        this.setState({[property]: e.target.value})
+    componentDidMount = () => {
+        this.props.updateJourneyInfo(this.state);
+    }
+
+    handleInputChange = async (property, e) => {
+        await this.setState({[property]: e.target.value});
+        this.props.updateJourneyInfo(this.state);
+        
     }
 
     render () {

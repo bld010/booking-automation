@@ -9,7 +9,8 @@ class UserInput extends Component {
         this.state = {
             stopBookingFlowPage: null,
             pnr: null,
-            ibeUrl: null
+            ibeUrl: null,
+            journeyInfo: null
         };
         this.bookingFlowPages = [
             "Flight Select",
@@ -22,6 +23,10 @@ class UserInput extends Component {
             "Full Booking"
         ]
         
+    }
+
+    updateJourneyInfo = (journeyInfo) => {
+        this.setState({journeyInfo: journeyInfo})
     }
 
     handleBookingFlowPageClick = (e) => {
@@ -93,7 +98,7 @@ class UserInput extends Component {
         let ibeUrl = this.state.ibeUrl;
 
         try {
-            let result = await startAutomation(fetchRoute, ibeUrl);
+            let result = await startAutomation(fetchRoute, ibeUrl, this.state.journeyInfo);
             this.setState({pnr: result.pnrInfo})
             console.log(result);
         } catch (error) {
@@ -122,10 +127,10 @@ class UserInput extends Component {
                         </ul>
                     </div>
                     
-                    <JourneyInfo />
+                    <JourneyInfo updateJourneyInfo={this.updateJourneyInfo}/>
 
                 </div>
-                <button onClick={this.handleSubmitClick} disabled={!this.state.ibeUrl}>Submit</button>
+                <button onClick={this.handleSubmitClick} disabled={!this.state.ibeUrl || !this.state.stopBookingFlowPage}>Submit</button>
                 {this.renderPnr()}
             </div>
             

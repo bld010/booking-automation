@@ -1,15 +1,20 @@
-export const startAutomation = async (url, ibeUrl, flightInformation) => {
-    console.log('FlightInformation from UserInput state: ', flightInformation);
+export const startAutomation = async (url, ibeUrl, journeyInfo) => {
+    console.log('JourneyInformation: ', journeyInfo);
+
+    let requestBody = {
+        ibeUrl: ibeUrl,
+        journeyInfo: journeyInfo
+    }
 
     let request = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ibeUrl: ibeUrl})
+        body: JSON.stringify(requestBody)
     }
 
-    console.log('request body in StartAutomation', request)
+    console.log('request in StartAutomation', request)
 
     let result = await fetch(url, request);
     console.log('result in apiCalls', result)
