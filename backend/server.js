@@ -238,9 +238,18 @@ app.post('/fullBooking', (request, response) => {
 
   app.post('/bundles', (request, response) => {
 
-    var body = request.body;
-
-    console.log(body)
+    var { 
+      origin, 
+      destination, 
+      departureDate,
+      passenger1FirstName,
+      passenger1LastName, 
+      passenger1Gender,
+      passenger1BirthDate, 
+      emailAddress, 
+      phoneNumber,
+      zipCode
+    } = request.body.journeyInfo;
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -252,7 +261,7 @@ app.post('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto(body.ibeUrl) 
+    .goto(request.body.ibeUrl) 
 
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
@@ -287,9 +296,18 @@ app.post('/fullBooking', (request, response) => {
 
   app.post('/seatSelect', (request, response) => {
 
-    var body = request.body;
-
-    console.log(body)
+    var { 
+      origin, 
+      destination, 
+      departureDate,
+      passenger1FirstName,
+      passenger1LastName, 
+      passenger1Gender,
+      passenger1BirthDate, 
+      emailAddress, 
+      phoneNumber,
+      zipCode
+    } = request.body.journeyInfo;
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -301,7 +319,7 @@ app.post('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto(body.ibeUrl) 
+    .goto(request.body.ibeUrl) 
 
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
@@ -339,9 +357,18 @@ app.post('/fullBooking', (request, response) => {
 
   app.post('/bags', (request, response) => {
 
-    var body = request.body;
-
-    console.log(body)
+    var { 
+      origin, 
+      destination, 
+      departureDate,
+      passenger1FirstName,
+      passenger1LastName, 
+      passenger1Gender,
+      passenger1BirthDate, 
+      emailAddress, 
+      phoneNumber,
+      zipCode
+    } = request.body.journeyInfo;
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -353,7 +380,7 @@ app.post('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto(body.ibeUrl) 
+    .goto(request.body.ibeUrl) 
 
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
@@ -397,9 +424,18 @@ app.post('/fullBooking', (request, response) => {
 
   app.post('/extras', (request, response) => {
 
-    var body = request.body;
-
-    console.log(body)
+    var { 
+      origin, 
+      destination, 
+      departureDate,
+      passenger1FirstName,
+      passenger1LastName, 
+      passenger1Gender,
+      passenger1BirthDate, 
+      emailAddress, 
+      phoneNumber,
+      zipCode
+    } = request.body.journeyInfo;
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -411,7 +447,7 @@ app.post('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto(body.ibeUrl) 
+    .goto(request.body.ibeUrl) 
 
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
@@ -459,9 +495,18 @@ app.post('/fullBooking', (request, response) => {
 
   app.post('/payment', (request, response) => {
 
-    var body = request.body;
-
-    console.log(body)
+    var { 
+      origin, 
+      destination, 
+      departureDate,
+      passenger1FirstName,
+      passenger1LastName, 
+      passenger1Gender,
+      passenger1BirthDate, 
+      emailAddress, 
+      phoneNumber,
+      zipCode
+    } = request.body.journeyInfo;
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -473,7 +518,7 @@ app.post('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto(body.ibeUrl) 
+    .goto(request.body.ibeUrl) 
 
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
