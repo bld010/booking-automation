@@ -1,0 +1,10 @@
+.JourneyInfo {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid gray;
+    margin: 20px;
+}
+
+input {
+    padding: 2px;
+}
