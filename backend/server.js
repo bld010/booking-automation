@@ -198,9 +198,11 @@ app.post('/fullBooking', (request, response) => {
 
   app.post('/passengerInfo', (request, response) => {
 
-    var body = request.body;
-
-    console.log(body)
+    var { 
+      origin, 
+      destination, 
+      departureDate
+    } = request.body.journeyInfo;
 
     var Nightmare = require('nightmare');
     var nightmare = Nightmare({ 
@@ -212,7 +214,7 @@ app.post('/fullBooking', (request, response) => {
         });
 
     nightmare
-    .goto(body.ibeUrl) 
+    .goto(request.body.ibeUrl) 
 
     .type('#fromInput', origin)
     .wait(`[data-value="${origin}"]`)
